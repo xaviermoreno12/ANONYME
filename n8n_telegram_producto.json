@@ -1,0 +1,179 @@
+{
+  "name": "ANONYME — Subir Producto por Telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "id": "telegram-trigger",
+      "name": "Telegram — Recibir Mensaje",
+      "webhookId": "anonyme-telegram-bot"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "has-photo",
+              "leftValue": "={{ $json.message.photo }}",
+              "rightValue": "",
+              "operator": { "type": "object", "operation": "exists" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.1,
+      "position": [460, 300],
+      "id": "check-photo",
+      "name": "¿Tiene foto?"
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg = $input.first().json.message;\nconst caption = msg.caption || '';\nconst lines = caption.split('\\n').map(l => l.trim()).filter(Boolean);\n\nif (lines.length < 3) {\n  return [{ json: { valid: false, chat_id: msg.chat.id, error: '❌ Formato incorrecto.\\n\\nEnviá la foto con este texto:\\n\\nNombre del producto\\nPrecio (solo número)\\nDescripción\\nCategoría (cosmeticos / fragancias / coleccion)' } }];\n}\n\nconst nombre = lines[0];\nconst precio = Number(lines[1].replace(/[^0-9]/g, ''));\nconst descripcion = lines[2];\nconst categoria = (lines[3] || 'cosmeticos').toLowerCase().trim();\nconst categorias_validas = ['cosmeticos', 'fragancias', 'coleccion'];\nconst cat_final = categorias_validas.includes(categoria) ? categoria : 'cosmeticos';\n\nif (!nombre || !precio) {\n  return [{ json: { valid: false, chat_id: msg.chat.id, error: '❌ El nombre o precio no son válidos.' } }];\n}\n\n// Obtener el file_id de la foto más grande\nconst photos = msg.photo;\nconst best_photo = photos[photos.length - 1];\nconst file_id = best_photo.file_id;\n\nreturn [{\n  json: {\n    valid: true,\n    chat_id: msg.chat.id,\n    nombre,\n    precio,\n    descripcion,\n    categoria: cat_final,\n    file_id\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 200],
+      "id": "parsear-caption",
+      "name": "Parsear Caption"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.1,
+      "position": [900, 200],
+      "id": "check-valid",
+      "name": "¿Formato válido?"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/getFile?file_id={{ $json.file_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 120],
+      "id": "get-file-url",
+      "name": "Obtener URL de Foto"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fileData = $input.first().json;\nconst token = $env.TELEGRAM_BOT_TOKEN;\nconst file_path = fileData.result.file_path;\nconst image_url = `https://api.telegram.org/file/bot${token}/${file_path}`;\n\n// Datos del producto del nodo anterior (necesitamos acceder al nodo Parsear Caption)\nconst prev = $('Parsear Caption').first().json;\n\nreturn [{\n  json: {\n    nombre: prev.nombre,\n    precio: prev.precio,\n    descripcion: prev.descripcion,\n    categoria: prev.categoria,\n    imagen_url: image_url,\n    chat_id: prev.chat_id\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 120],
+      "id": "armar-producto",
+      "name": "Armar Producto"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": { "__rl": true, "value": "REEMPLAZAR_APP_ID", "mode": "id" },
+        "table": { "__rl": true, "value": "REEMPLAZAR_TABLE_ID", "mode": "id" },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Nombre": "={{ $json.nombre }}",
+            "Precio": "={{ $json.precio }}",
+            "Descripcion": "={{ $json.descripcion }}",
+            "Categoria": "={{ $json.categoria }}",
+            "Imagen_URL": "={{ $json.imagen_url }}",
+            "Activo": true
+          }
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [1560, 120],
+      "id": "guardar-airtable",
+      "name": "Guardar en Airtable"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Armar Producto').first().json.chat_id }}",
+        "text": "=✅ ¡Producto publicado!\n\n*{{ $('Armar Producto').first().json.nombre }}*\n${{ $('Armar Producto').first().json.precio.toLocaleString('es-AR') }}\n\nYa aparece en la web 🛍️",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1780, 120],
+      "id": "confirmar-ok",
+      "name": "Confirmar ✅"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "={{ $json.error }}",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1120, 320],
+      "id": "enviar-error-formato",
+      "name": "Error — Formato ❌"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram — Recibir Mensaje').first().json.message.chat.id }}",
+        "text": "📷 Necesito que envíes una *foto* del producto con la descripción.\n\n*Formato:*\n```\nNombre del producto\nPrecio (solo número)\nDescripción\nCategoría (cosmeticos / fragancias / coleccion)\n```",
+        "additionalFields": { "parse_mode": "Markdown" }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [680, 420],
+      "id": "error-sin-foto",
+      "name": "Error — Sin Foto 📷"
+    }
+  ],
+  "connections": {
+    "Telegram — Recibir Mensaje": {
+      "main": [[{ "node": "¿Tiene foto?", "type": "main", "index": 0 }]]
+    },
+    "¿Tiene foto?": {
+      "main": [
+        [{ "node": "Parsear Caption", "type": "main", "index": 0 }],
+        [{ "node": "Error — Sin Foto 📷", "type": "main", "index": 0 }]
+      ]
+    },
+    "Parsear Caption": {
+      "main": [[{ "node": "¿Formato válido?", "type": "main", "index": 0 }]]
+    },
+    "¿Formato válido?": {
+      "main": [
+        [{ "node": "Obtener URL de Foto", "type": "main", "index": 0 }],
+        [{ "node": "Error — Formato ❌", "type": "main", "index": 0 }]
+      ]
+    },
+    "Obtener URL de Foto": {
+      "main": [[{ "node": "Armar Producto", "type": "main", "index": 0 }]]
+    },
+    "Armar Producto": {
+      "main": [[{ "node": "Guardar en Airtable", "type": "main", "index": 0 }]]
+    },
+    "Guardar en Airtable": {
+      "main": [[{ "node": "Confirmar ✅", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "id": "anonyme-telegram-upload"
+}

@@ -1,0 +1,77 @@
+{
+  "name": "ANONYME — API Productos (Website)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "anonyme-productos",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "id": "webhook-productos",
+      "name": "GET /anonyme-productos",
+      "webhookId": "anonyme-productos-api"
+    },
+    {
+      "parameters": {
+        "operation": "list",
+        "base": { "__rl": true, "value": "REEMPLAZAR_APP_ID", "mode": "id" },
+        "table": { "__rl": true, "value": "REEMPLAZAR_TABLE_ID", "mode": "id" },
+        "filterByFormula": "={Activo}=TRUE()",
+        "sort": [{ "field": "Fecha", "direction": "desc" }],
+        "options": { "fields": ["Nombre","Precio","Descripcion","Categoria","Imagen_URL"] }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [460, 300],
+      "id": "leer-airtable",
+      "name": "Leer Productos Airtable"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Si viene filtro de categoría por query param\nconst categoria = $('GET /anonyme-productos').first().json.query?.categoria || null;\n\nlet productos = items.map(item => ({\n  id: item.json.id,\n  nombre: item.json.fields?.Nombre || '',\n  precio: item.json.fields?.Precio || 0,\n  descripcion: item.json.fields?.Descripcion || '',\n  categoria: (item.json.fields?.Categoria || 'cosmeticos').toLowerCase(),\n  imagen: item.json.fields?.Imagen_URL || ''\n})).filter(p => p.nombre);\n\nif (categoria) {\n  productos = productos.filter(p => p.categoria === categoria);\n}\n\nreturn [{ json: { productos, total: productos.length } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300],
+      "id": "formatear",
+      "name": "Formatear JSON"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              { "name": "Access-Control-Allow-Origin", "value": "*" },
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300],
+      "id": "responder",
+      "name": "Responder con JSON"
+    }
+  ],
+  "connections": {
+    "GET /anonyme-productos": {
+      "main": [[{ "node": "Leer Productos Airtable", "type": "main", "index": 0 }]]
+    },
+    "Leer Productos Airtable": {
+      "main": [[{ "node": "Formatear JSON", "type": "main", "index": 0 }]]
+    },
+    "Formatear JSON": {
+      "main": [[{ "node": "Responder con JSON", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "id": "anonyme-api-productos"
+}

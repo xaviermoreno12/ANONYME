@@ -256,3 +256,90 @@ $$('.product-card, .category-card, .ig-card').forEach(el => {
   el.style.transition = 'opacity .5s ease, transform .5s ease';
   observer.observe(el);
 });
+
+/* ── CMS Dinámico — Airtable vía n8n API ─────────────────────── */
+// Pegá aquí la URL del webhook de n8n cuando lo configures.
+// Ejemplo: 'https://tu-cuenta.app.n8n.cloud/webhook/anonyme-productos'
+// Con esta vacía, la web usa los productos hardcodeados en el HTML.
+const API_URL = '';
+
+function buildProductCard(p) {
+  const fallbackImg = 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80';
+  const cat = (p.categoria || 'producto').toLowerCase();
+  const catLabel = cat.charAt(0).toUpperCase() + cat.slice(1);
+  return `
+    <article class="product-card" data-category="${cat}">
+      <div class="product-img-wrap">
+        <img src="${p.imagen || fallbackImg}" alt="${p.nombre}" class="product-img" loading="lazy" />
+        <div class="product-actions">
+          <button class="add-to-cart" data-name="${p.nombre}" data-price="${p.precio}">Agregar al carrito</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-category">${catLabel}</p>
+        <h3 class="product-name">${p.nombre}</h3>
+        <p class="product-price">${formatPrice(p.precio)}</p>
+      </div>
+    </article>`;
+}
+
+function attachDynamicCartBtns(grid) {
+  grid.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      addToCart(btn.dataset.name, btn.dataset.price);
+      const orig = btn.textContent;
+      btn.textContent = '¡Agregado!';
+      btn.style.background = '#B8861C';
+      setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 1400);
+      openCart();
+    });
+  });
+  grid.querySelectorAll('.product-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+}
+
+async function loadProducts(categoria) {
+  const grid = $('productsGrid');
+  const countEl = $('productCount');
+  if (!grid) return;
+
+  grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:60px 20px;
+    font-family:var(--font-sans);font-size:.85rem;letter-spacing:.08em;color:#999">
+    Cargando productos…</p>`;
+
+  try {
+    const res = await fetch(`${API_URL}?categoria=${categoria}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const productos = data.productos || [];
+
+    if (productos.length === 0) {
+      grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:60px 20px;
+        font-family:var(--font-sans);font-size:.85rem;letter-spacing:.08em;color:#999">
+        No hay productos en esta categoría.</p>`;
+      if (countEl) countEl.textContent = '0 productos';
+      return;
+    }
+
+    grid.innerHTML = productos.map(buildProductCard).join('');
+    if (countEl) countEl.textContent = `${productos.length} producto${productos.length !== 1 ? 's' : ''}`;
+    attachDynamicCartBtns(grid);
+
+  } catch (err) {
+    console.warn('[ANONYME] API no disponible, usando contenido estático.', err);
+    // Restaura el HTML estático del servidor recargando sin borrar nada
+    grid.innerHTML = grid.dataset.staticHtml || grid.innerHTML;
+    attachDynamicCartBtns(grid);
+  }
+}
+
+// Auto-cargar en páginas de categoría si hay API configurada
+const categorySection = document.querySelector('[data-load-category]');
+if (categorySection && API_URL) {
+  loadProducts(categorySection.dataset.loadCategory);
+}
