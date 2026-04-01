@@ -908,3 +908,55 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ── Category Hero ───────────────────────────────────────────── */
+.cat-hero {
+  background: var(--cream);
+  padding: calc(var(--header-h) + 60px) 32px 52px;
+  text-align: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+.cat-hero-label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.cat-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: .04em;
+  color: var(--black);
+  margin-bottom: 14px;
+}
+.cat-hero-desc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Cart qty badge ──────────────────────────────────────────── */
+.cart-qty-badge {
+  background: var(--gold-pale);
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: 4px;
+}
+
+/* ── Nav active link ─────────────────────────────────────────── */
+.nav-link.active {
+  color: var(--black);
+}
+.nav-link.active::after {
+  transform: scaleX(1);
+}

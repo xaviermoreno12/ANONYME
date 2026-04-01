@@ -18,9 +18,9 @@
 
       <nav class="nav-left" aria-label="Navegación principal">
         <ul class="nav-list">
-          <li><a href="#coleccion" class="nav-link">Colección</a></li>
-          <li><a href="#cosmeticos" class="nav-link">Cosméticos</a></li>
-          <li><a href="#fragancias" class="nav-link">Fragancias</a></li>
+          <li><a href="coleccion.html" class="nav-link">Colección</a></li>
+          <li><a href="cosmeticos.html" class="nav-link">Cosméticos</a></li>
+          <li><a href="fragancias.html" class="nav-link">Fragancias</a></li>
         </ul>
       </nav>
 
@@ -46,9 +46,9 @@
         <button class="icon-btn" aria-label="Buscar" id="searchToggle">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         </button>
-        <button class="icon-btn" aria-label="Favoritos">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
+        <a href="https://instagram.com/anonyme.oficial" target="_blank" rel="noopener" class="icon-btn" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
         <button class="icon-btn cart-btn" aria-label="Carrito">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span class="cart-count">0</span>
@@ -69,9 +69,9 @@
     <!-- Mobile nav -->
     <div class="mobile-nav" id="mobileNav">
       <ul>
-        <li><a href="#coleccion">Colección</a></li>
-        <li><a href="#cosmeticos">Cosméticos</a></li>
-        <li><a href="#fragancias">Fragancias</a></li>
+        <li><a href="coleccion.html">Colección</a></li>
+        <li><a href="cosmeticos.html">Cosméticos</a></li>
+        <li><a href="fragancias.html">Fragancias</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
       </ul>
     </div>
@@ -408,7 +408,7 @@
         <span>Total</span>
         <span id="cartTotal">$0</span>
       </div>
-      <button class="checkout-btn">Finalizar compra</button>
+      <button class="checkout-btn" id="checkoutBtn">Finalizar compra vía WhatsApp</button>
     </div>
   </div>
   <div class="cart-overlay" id="cartOverlay"></div>
