@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ANONYME — Moda y cosmética de autor. Colecciones exclusivas." />
+  <title>ANONYME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+
+      <nav class="nav-left" aria-label="Navegación principal">
+        <ul class="nav-list">
+          <li><a href="#coleccion" class="nav-link">Colección</a></li>
+          <li><a href="#cosmeticos" class="nav-link">Cosméticos</a></li>
+          <li><a href="#fragancias" class="nav-link">Fragancias</a></li>
+        </ul>
+      </nav>
+
+      <a href="index.html" class="logo" aria-label="ANONYME inicio">
+        <!-- Logo SVG basado en la A dorada -->
+        <svg class="logo-svg" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 8 L90 68 L78 68 L60 32 L42 68 L30 68 Z" fill="url(#goldGrad)"/>
+          <path d="M38 52 Q60 44 82 52" stroke="url(#goldGrad)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M30 68 Q36 60 42 68" stroke="url(#goldGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M78 68 Q84 60 90 68" stroke="url(#goldGrad)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="goldGrad" x1="30" y1="8" x2="90" y2="68" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#D4A843"/>
+              <stop offset="50%" stop-color="#B8861C"/>
+              <stop offset="100%" stop-color="#D4A843"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">ANONYME</span>
+      </a>
+
+      <div class="nav-right">
+        <button class="icon-btn" aria-label="Buscar" id="searchToggle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Favoritos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" aria-label="Carrito">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count">0</span>
+        </button>
+        <button class="nav-hamburger" id="navToggle" aria-label="Menú">
+          <span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Search bar -->
+    <div class="search-bar" id="searchBar">
+      <input type="search" class="search-input" placeholder="Buscar productos..." aria-label="Buscar" />
+      <button class="search-close" id="searchClose" aria-label="Cerrar búsqueda">✕</button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="#coleccion">Colección</a></li>
+        <li><a href="#cosmeticos">Cosméticos</a></li>
+        <li><a href="#fragancias">Fragancias</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Colección destacada">
+    <div class="hero-media">
+      <img
+        src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=85"
+        alt="Colección ANONYME"
+        class="hero-img"
+      />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-label">Nueva Colección</p>
+      <h2 class="hero-title">Estudio<br/><em>Primavera</em></h2>
+      <a href="#coleccion" class="hero-cta">Ver colección</a>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section class="categories">
+    <div class="categories-grid">
+      <a href="#cosmeticos" class="category-card">
+        <div class="category-img-wrap">
+          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&q=80" alt="Cosméticos" />
+        </div>
+        <div class="category-label">
+          <span>Cosméticos</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+      <a href="#fragancias" class="category-card category-card--tall">
+        <div class="category-img-wrap">
+          <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80" alt="Fragancias" />
+        </div>
+        <div class="category-label">
+          <span>Fragancias</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+      <a href="#coleccion" class="category-card">
+        <div class="category-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="Moda" />
+        </div>
+        <div class="category-label">
+          <span>Moda</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- COLECCIÓN -->
+  <section class="products-section" id="coleccion">
+    <div class="section-header">
+      <h2 class="section-title">Colección</h2>
+      <div class="section-filters" id="filterBar">
+        <button class="filter-btn active" data-filter="all">Todo</button>
+        <button class="filter-btn" data-filter="cosmeticos">Cosméticos</button>
+        <button class="filter-btn" data-filter="fragancias">Fragancias</button>
+        <button class="filter-btn" data-filter="moda">Moda</button>
+      </div>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <article class="product-card" data-category="cosmeticos">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" alt="Base Futurista" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Base Futurista" data-price="12500">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Cosméticos</p>
+          <h3 class="product-name">Base Futurista</h3>
+          <p class="product-price">$12.500</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="cosmeticos">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631730486784-74757ac4da1d?w=600&q=80" alt="Máscara de Pestañas" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Máscara de Pestañas" data-price="8900">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Cosméticos</p>
+          <h3 class="product-name">Máscara de Pestañas</h3>
+          <p class="product-price">$8.900</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="fragancias">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=600&q=80" alt="Eau de Parfum" class="product-img" loading="lazy" />
+          <span class="product-badge">Nuevo</span>
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Eau de Parfum" data-price="28000">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Fragancias</p>
+          <h3 class="product-name">Eau de Parfum</h3>
+          <p class="product-price">$28.000</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="cosmeticos">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1583241475880-083f84372725?w=600&q=80" alt="Gloss de Labios" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Gloss de Labios" data-price="6500">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Cosméticos</p>
+          <h3 class="product-name">Gloss de Labios</h3>
+          <p class="product-price">$6.500</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="moda">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80" alt="Vestido Primavera" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Vestido Primavera" data-price="45000">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Moda</p>
+          <h3 class="product-name">Vestido Primavera</h3>
+          <p class="product-price">$45.000</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="fragancias">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80" alt="Perfume Noche" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Perfume Noche" data-price="32000">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Fragancias</p>
+          <h3 class="product-name">Perfume Noche</h3>
+          <p class="product-price">$32.000</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="moda">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80" alt="Blazer Oversize" class="product-img" loading="lazy" />
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Blazer Oversize" data-price="38000">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Moda</p>
+          <h3 class="product-name">Blazer Oversize</h3>
+          <p class="product-price">$38.000</p>
+        </div>
+      </article>
+
+      <article class="product-card" data-category="cosmeticos">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512207736890-6ffed8a84e8d?w=600&q=80" alt="Delineador Precision" class="product-img" loading="lazy" />
+          <span class="product-badge product-badge--sale">−20%</span>
+          <button class="wishlist-btn" aria-label="Agregar a favoritos">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+          <div class="product-actions">
+            <button class="add-to-cart" data-name="Delineador Precision" data-price="5200">Agregar al carrito</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-category">Cosméticos</p>
+          <h3 class="product-name">Delineador Precision</h3>
+          <p class="product-price">$5.200 <s class="price-old">$6.500</s></p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- EDITORIAL BANNER -->
+  <section class="editorial">
+    <div class="editorial-img-wrap">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=85" alt="Editorial ANONYME" class="editorial-img" />
+      <div class="editorial-overlay"></div>
+    </div>
+    <div class="editorial-content">
+      <p class="editorial-label">Estudio — 2026</p>
+      <h2 class="editorial-title">La belleza<br/><em>es una actitud</em></h2>
+      <a href="#coleccion" class="editorial-cta">Explorar</a>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="about" id="nosotros">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="about-label">Sobre nosotros</p>
+        <h2 class="about-title">ANONYME</h2>
+        <p class="about-desc">Somos una marca de moda y cosmética que celebra la individualidad. Cada producto es una expresión de lujo accesible, diseñado para quienes saben que la belleza no tiene que pedir permiso.</p>
+        <a href="#" class="about-link">Conocer más →</a>
+      </div>
+      <div class="about-img-wrap">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=700&q=80" alt="Sobre ANONYME" />
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="instagram-section">
+    <p class="instagram-label">Seguinos en Instagram</p>
+    <a href="https://instagram.com/anonyme.oficial" target="_blank" rel="noopener" class="instagram-handle">@anonyme.oficial</a>
+    <div class="instagram-grid">
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80" alt="Instagram 1" /></div>
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&q=80" alt="Instagram 2" /></div>
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=400&q=80" alt="Instagram 3" /></div>
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1583241475880-083f84372725?w=400&q=80" alt="Instagram 4" /></div>
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="Instagram 5" /></div>
+      <div class="ig-card"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80" alt="Instagram 6" /></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg class="footer-logo-svg" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 8 L90 68 L78 68 L60 32 L42 68 L30 68 Z" fill="url(#goldGrad2)"/>
+          <path d="M38 52 Q60 44 82 52" stroke="url(#goldGrad2)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M30 68 Q36 60 42 68" stroke="url(#goldGrad2)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M78 68 Q84 60 90 68" stroke="url(#goldGrad2)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="goldGrad2" x1="30" y1="8" x2="90" y2="68" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#D4A843"/>
+              <stop offset="100%" stop-color="#B8861C"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="footer-brand-name">ANONYME</span>
+        <p class="footer-tagline">Moda & Cosmética de autor</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/anonyme.oficial" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.22 8.22 0 0 0 4.78 1.52V6.73a4.85 4.85 0 0 1-1.01-.04z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-nav-cols">
+        <div class="footer-col">
+          <h4>Colección</h4>
+          <ul>
+            <li><a href="#cosmeticos">Cosméticos</a></li>
+            <li><a href="#fragancias">Fragancias</a></li>
+            <li><a href="#coleccion">Moda</a></li>
+            <li><a href="#">Novedades</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Ayuda</h4>
+          <ul>
+            <li><a href="#">Cómo comprar</a></li>
+            <li><a href="#">Envíos</a></li>
+            <li><a href="#">Cambios y devoluciones</a></li>
+            <li><a href="#">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://instagram.com/anonyme.oficial" target="_blank">@anonyme.oficial</a></li>
+            <li><a href="#">WhatsApp</a></li>
+            <li><a href="#">Email</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear"></span> ANONYME. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- CARRITO SIDEBAR -->
+  <div class="cart-sidebar" id="cartSidebar" aria-hidden="true">
+    <div class="cart-header">
+      <h3>Carrito</h3>
+      <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Tu carrito está vacío</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <button class="checkout-btn">Finalizar compra</button>
+    </div>
+  </div>
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
